@@ -10,7 +10,6 @@ import argparse
 def load_json_data(file_path):
     if not os.path.exists(file_path):
         print ('Не верный путь до файла\файла не существует,перезапустите программу и введите правильные данные')
-        sys.exit()
         return None
     with open(file_path, 'r', encoding = 'utf-8') as file_handler:
         return json.load(file_handler)
@@ -21,7 +20,7 @@ def create_parser():
      file_json = parser.parse_args().json
      if not file_json:
          parser.print_help()
-         sys.exit()
+         return None
      else:
          return (file_json)
     
