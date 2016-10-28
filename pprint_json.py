@@ -9,7 +9,7 @@ import argparse
 
 def load_json_data(file_path):
     if not os.path.exists(file_path):
-        print ('Не верный путь до файла\файла не существует,перезапустите программу и введите правильные данные')
+        print ('Неверный путь до файла\файла не существует,перезапустите программу и введите правильные данные')
         return None
     else:
         return (open_json(file_path))
