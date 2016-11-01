@@ -24,7 +24,7 @@ def load_win_unicode_console():
 def read_arguments():
     """
     использую с join,чтобы программа работала при указании пути,в котором папка
-    может содержать в названии пробел(C:\Users\New User\file.format)
+    может содержать в названии пробел(C:\\Users\\New User\\file.format)
     """
     parser = argparse.ArgumentParser()
     parser.add_argument('--json', help='Укажите путь к файлу в формате .json', nargs = '+')
