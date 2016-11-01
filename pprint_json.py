@@ -9,19 +9,10 @@ import argparse
 
 def load_json_data(file_path):
     if not os.path.exists(file_path):
-        print ('Неверный путь до файла\файла не существует,перезапустите программу и введите правильные данные')
         return None
     else:
-        return (open_json(file_path))
-    
-        
-def open_json(file_path):
-    try:
         with open(file_path, 'r', encoding = 'utf-8') as file_handler:
-            return json.load(file_handler)
-    except ValueError :
-        print('Это не json файл')
-        return None
+                return json.load(file_handler)  
     
     
 def load_win_unicode_console():
@@ -32,18 +23,13 @@ def load_win_unicode_console():
 
 def read_arguments():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--json', help='Укажите путь к файлу в формате .json', nargs = '?')
+    parser.add_argument('--json', help='Укажите путь к файлу в формате .json', nargs = '+')
     file_json = parser.parse_args().json
-    return (existence_of_input(file_json,parser))
-
-
-def existence_of_input(file_json,parser):
-    if not file_json:
-        parser.print_help()
-        return None
-    else:
-        return (file_json)
-        
+    try :
+        file = ' '.join(file_json)
+    except TypeError:
+        return None, parser
+    return file, parser  
 
 
 def pretty_print_json(data):
@@ -54,9 +40,19 @@ def pretty_print_json(data):
         
 
 if __name__ == '__main__':
-    load_win_unicode_console()
-    file_path = read_arguments()
-    if file_path is not None:
-        json_file = load_json_data(file_path)
-        if json_file is not None:
-            pretty_print_json(json_file)
+    while True:
+        load_win_unicode_console()
+        file_path,parser = read_arguments()
+        if file_path is None:
+            parser.print_help()
+            break
+        try:
+            json_file = load_json_data(file_path)
+        except ValueError:
+            print('Это не json')
+            break
+        if json_file is None:
+            print('Не верный путь до файла\файла не существует,перезапустите программу и введите правильные данные')
+            break
+        pretty_print_json(json_file)
+        break
