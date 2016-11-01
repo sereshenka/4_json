@@ -24,12 +24,12 @@ def load_win_unicode_console():
 def read_arguments():
     parser = argparse.ArgumentParser()
     parser.add_argument('--json', help='Укажите путь к файлу в формате .json', nargs = '+')
-    file_json = parser.parse_args().json
+    arguments = parser.parse_args().json
     try :
-        file = ' '.join(file_json)
+        file_path = ' '.join(arguments)
     except TypeError:
         return None, parser
-    return file, parser  
+    return file_path, parser  
 
 
 def pretty_print_json(data):
